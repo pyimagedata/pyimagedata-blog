@@ -232,11 +232,11 @@ class Javascript_View(ListView):
     def get_queryset(self):
         return Article.objects.filter(Q(category__title__icontains="javascript")).order_by("-id")
 
-class Golang_View(ListView):
+class Django_View(ListView):
     model = Article
-    template_name = 'articles/programming/golang.html'
+    template_name = 'articles/programming/django.html'
     context_object_name = "posts"
     paginate_by = 6
 
     def get_queryset(self):
-        return Article.objects.filter(Q(category__title__icontains="golang")).order_by("-id")
+        return Article.objects.filter(Q(category__title__icontains="django")).order_by("-id")

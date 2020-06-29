@@ -31,7 +31,7 @@ urlpatterns = [
     path('programming/python',Python_View.as_view(),name='python'),
     path('programming/c++',Cpluplus_View.as_view(),name='cplusplus'),
     path('programming/javascript',Javascript_View.as_view(),name='javascript'),
-    path('programming/golang',Golang_View.as_view(),name='golang'),
+    path('programming/django',Django_View.as_view(),name='django'),
 
 
 
