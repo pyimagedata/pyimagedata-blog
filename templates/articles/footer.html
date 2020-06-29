@@ -1,0 +1,63 @@
+{% load static %}
+{% load footer_tags %}
+
+<footer class="bg-dark d-lg-block d-md-none d-sm-none d-none ">
+    <div class="row justify-content-center ">
+        <div class="col-2">
+        </div>
+        <div class="col-4 py-5 pl-5 ">
+            <h3 class="text-center mr-5 text-white mb-5 ">Latest Posts</h3>
+            {% latest as latest%}
+            {% for post in latest %}
+            <div class="col-12 justify-content-end ">
+                <div class="card mb-3 text-white bg-dark " style="max-width: 540px; ">
+                    <div class="row no-gutters ">
+                        <div class="col-md-3 ">
+                            <img src=" {{ post.image.url }} " class="card-img post-img " alt="... ">
+                        </div>
+                        <div class="col-md-8 ">
+                            <div class="ml-3 mt-2 ">
+                                <a href="{% url 'detail' post.pk post.slug %}" class="card-text text-decoration-none text-white"> {{ post.title|truncatechars:'30'|safe }}</a>
+                                <p class="card-text "><small class="text-muted ">{{ post.publishing_date|date:"F d, Y" }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+
+
+        <div class="col-4 py-5 pl-5 ">
+            <h3 class="text-center mr-5 text-white mb-5 ">Popular Posts</h3>
+            {% popular as popular %}
+            {% for post in popular %}
+            <div class="col-12 ">
+                <div class="card mb-3 text-white bg-dark " style="max-width: 540px; ">
+                    <div class="row no-gutters ">
+                        <div class="col-md-3 ">
+                            <img src=" {{ post.image.url }} " class="card-img " alt="... ">
+                        </div>
+                        <div class="col-md-8 ">
+                            <div class="ml-3 mt-2 ">
+                                <a href="{% url 'detail' post.pk post.slug %}" class="card-text text-decoration-none text-white"> {{ post.title|truncatechars:'30'|safe }}</a>
+                                <p class="card-text "><small class="text-muted ">{{ post.publishing_date|date:"F d, Y" }}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            
+        </div>
+        <div class="col-2">
+        </div>
+
+
+    </div>
+</footer>
+<footer class="bg-dark text-white text-center pb-3 pt-2 ">
+    <h5>© 2020 Copyright: PyImageData.com</h5>
+</footer>

@@ -1,0 +1,77 @@
+{% load static %} {% load side_tags %}
+<div class="row">
+    {% popular as popular %}
+    {% for popular in popular %}
+    <div class="col-12">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <img src=" {{ popular.image.url }} " class="card-img" alt="...">
+                </div>
+                <div class="col-md-7">
+                    <div class="ml-3 mt-2">
+                        <a class="card-text text-decoration-none " href="{% url 'detail' popular.pk popular.slug  %}" title="" style='line-height:18px !important; color: rgb(5, 30, 80) !important; font-family: "Lato", sans-serif !important;'> {{ popular.title|truncatechars:"45" }}</a>
+                        <p class="card-text"><small class="text-muted" style='line-height:10px !important;'> {{ popular.publishing_date }} </small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="row">
+    <div class="row mx-auto mt-3">
+    <img src="{% static 'img/366x280.png' %}" alt="">
+</div>
+</div>
+
+<div class="row pl-1 mt-3">
+    <div class="col-12">
+        <div class="col-12 mb-3 recent-posts d-inline">
+            <hr>
+            <button type="button" class="py-3 mt-2">
+                    <h5>Post Categories</h5>
+                </button>
+            <hr>
+        </div>
+    </div>
+    <div class="col-12 mt-3">
+        <div class="row">
+            <div class="col-12">
+                {% category as category %} {% for category in category %}
+                <h5 class="pl-3 display-4 category">
+                    <a class="text-muted text-decoration-none" href="{% url 'category' category.slug category.pk %}"> {{ category.title }}</a>
+                    <a class="text-muted text-decoration-none float-right mr-3" href="#"> {{ category.article_count }} </a>
+                </h5>
+                <hr> {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row pl-3 mt-3 mx-auto">
+    <img src="{% static 'img/300x600.png' %}" alt="">
+</div>
+
+<div class="row pl-1 mt-3">
+    <div class="col-12">
+        <div class="col-12 recent-posts d-inline">
+            <hr>
+            <button type="button" class="py-3 mt-2">
+                    <h5>Post Categories</h5>
+                </button>
+            <hr>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12">
+                <h5 class="pl-3 display-4 category">
+                    {% tag as tag %} {% for tag in tag %}
+                        <a href="{% url 'tag' tag.slug tag.pk %}" class="p-1 my-1 badge badge-secondary text-white"> {{ tag.title }}</a>
+                    {% endfor %}
+                </h5>
+                <hr> 
+            </div>
+        </div>
+    </div>
+</div>

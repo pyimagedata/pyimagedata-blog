@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% load static %} {% block jumbotron %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container text-center">
+        <h1 class="display-4">Arduino</h1>
+        <p>
+            <a class="text-decoration-none text-dark display-4" style="font-size:24px; font-weight:400;" href="#">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <a class="text-decoration-none text-dark display-4" style="font-size:24px; font-weight:400;" href="#">Arduino</a>
+        </p>
+    </div>
+</div>
+{% endblock jumbotron %} {% block content %}
+<div class="row">
+    <div class="col-lg-8 col-md-12 px-3">
+        <div class="row">
+            {% for post in posts %}
+            <div class="col-12">
+                <div class="card post-card mb-3 shadow p-3 mb-5 bg-white rounded">
+                    <div class="row no-gutters">
+                        <div class="col-lg-6 col-md-12 post__img my-md-0 my-lg-5">
+                            <img src=" {{ post.image.url }} " class="card-img post-img" alt="...">
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card-body post-card-body mt-md-0 mt-lg-5">
+                                <h5 class="card-title">
+                                    <a class="text-decoration-none" href="{% url 'detail' post.pk post.slug  %}"> {{ post.title }} </a>
+                                </h5>
+                                <p class="card-text"> {{ post.content|truncatechars:"150"|safe }} </p>
+                                <p class="card-text">
+                                    <small class="text-muted detail-by"> by </small>
+                                    <small class="text-muted detail-author"> {{ post.author }} </small>
+                                    <small class="text-muted detail-date"> {{ post.publishing_date|date:"F d, Y" }} </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-4 left-side d-md-none d-sm-none d-none d-lg-block recent-posts">
+        <button id="popular-posts" type="button" class=" btn py-3 mt-2 mb-3">
+            <h5>Popular Posts</h5>
+        </button> {% include 'left-side.html' %}
+    </div>
+</div>
+{% endblock content %}
+
+{% block paginator %}
+
+<ul class="pagination pt-3 ">
+    {% if page_obj.has_previous %}
+    <li class="page-item "><a class="page-link " href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% else %}
+    <li class="disabled"><span class="page-link ">Previous</span></li>
+    {% endif %} 
+    {% if page_obj.number|add:'-4' > 1 %}
+    <li class="page-item "><a class="page-link " href="?page=1">1</a></li>
+    <li class="page-item "><a class="page-link " href="?page={{ page_obj.number|add:'-5' }}">&hellip;</a></li>
+    {% endif %} 
+    {% for i in page_obj.paginator.page_range %}
+    {% if page_obj.number == i %}
+        <li class="active page-item"><span class="page-link ">{{ i }}</span></li>
+    {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+        <li class="page-item "><a class="page-link " href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+  {% endfor %} 
+  {% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
+        <li class="page-item "><a class="page-link " href="?page={{ page_obj.number|add:'5' }}">&hellip;</a></li>
+        <li class="page-item "><a class="page-link " href="?page={{ page_obj.paginator.count }}">{{ page_obj.paginator.count }}</a></li>
+        {% endif %} {% if page_obj.has_next %}
+        <li class="page-item "><a class="page-link " href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% else %}
+        <li class="disabled"><span class="page-link ">Next</span></li>
+        {% endif %}
+</ul>
+{% endblock paginator %}
+
+{% block footer %}
+    {% include 'articles/footer.html' %}
+{% endblock footer %}

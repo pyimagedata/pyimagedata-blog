@@ -1,0 +1,93 @@
+{% extends "base.html" %} {% load static %} {% block jumbotron %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container text-center">
+        <h1 class="display-4">Detail</h1>
+        <p>
+            <a class="text-decoration-none text-dark display-4" style="font-size:24px; font-weight:400;" href="#">Home</a>
+            <i class="fas fa-chevron-right"></i>
+            <a class="text-decoration-none text-dark display-4 text-capitalize" style="font-size:24px; font-weight:400;" href="#"> {{ post.category }} </a>
+        </p>
+    </div>
+</div>
+{% endblock jumbotron %} {% block content %}
+<div class="row">
+    <div class="col-lg-8 col-md-12 px-3">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-3 border-0">
+                    <div class="card-body">
+                        <h5 class="detail-title"> {{ post.title }} </h5>
+                        <p class="card-text">
+                            <small class="text-muted detail-by"> by </small>
+                            <small class="text-muted detail-author"> {{ post.author }} </small>
+                            <small class="text-muted detail-date"> {{ post.publishing_date|date:"F d, Y" }} </small>
+                        </p>
+                    </div>
+                    <img src=" {{ post.image.url }} " class="card-img-top" alt="...">
+                    <div>
+                    {% for tag in post.tag.all %}
+                        <span> <a href="{% url 'tag' tag.slug tag.pk %}" class="btn btn-primary text-white my-3 mr-3 float-left text-"> {{ tag.title }} </a> </span>
+                    {% endfor %}
+                    </div>
+                    <p class="card-text detail-content mt-5"> {{ post.content|safe }} </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 left-side d-md-none d-sm-none d-none d-lg-block recent-posts">
+        <button id="popular-posts" type="button" class=" btn py-3 mt-2 mb-3">
+            <h5>Popular Posts</h5>
+        </button> {% include 'left-side.html' %}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-8">
+        <hr>
+        <div class="row mt-5">
+            <div class="col-6">
+
+                {% if previous %}
+                <div class="card mb-3 border-0" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-5">
+                            <img src=" {{ previous.image.url }} " class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="ml-3 mt-2">
+                                <a class="card-text text-decoration-none h5" href="{% url 'detail' previous.pk previous.slug  %}" title="" style='line-height:18px !important; color: rgb(5, 30, 80) !important; font-family: "Lato", sans-serif !important;'> {{ previous.title|truncatechars:"45" }}</a>
+                                <p class="card-text text-success h5"><small class="" style='line-height:10px !important;'> Previous Article </small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="col-6">
+
+                {% if next %}
+                <div class="card mb-3 border-0" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-7">
+                            <div class="ml-5 mt-2">
+                                <a class="card-text text-decoration-none h5 " href="{% url 'detail' next.pk next.slug  %}" title="" style='line-height:18px !important; color: rgb(5, 30, 80) !important; font-family: "Lato", sans-serif !important;'> {{ next.title|truncatechars:"45" }}</a>
+                                <h5 class="card-text text-success"><small class="" style='line-height:10px !important;'> Next Article </small></h5>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <img src=" {{ next.image.url }} " class="card-img" alt="...">
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block footer %}
+    {% include 'articles/footer.html' %}
+{% endblock footer %}
