@@ -222,7 +222,7 @@
 
 .detail-content {
     color: rgb(5, 30, 80);
-    font-family: 'Lato', sans-serif;
+    font-family: 'Lato', sans-serif !important;
     font-size: 20px !important;
     line-height: 32px;
     letter-spacing: normal;

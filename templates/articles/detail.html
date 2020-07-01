@@ -29,7 +29,7 @@
                         <span> <a href="{% url 'tag' tag.slug tag.pk %}" class="btn btn-primary text-white my-3 mr-3 float-left text-"> {{ tag.title }} </a> </span>
                     {% endfor %}
                     </div>
-                    <p class="card-text detail-content mt-5"> {{ post.content|safe }} </p>
+                    <p class="card-text detail-content mt-5" style="font-size:48px !important;"> {{ post.content|safe }} </p>
                 </div>
             </div>
         </div>

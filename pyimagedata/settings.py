@@ -128,13 +128,52 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
-#STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
+#CKEDITOR_BASEPATH = "static/ckeditor/ckeditor"
 
 django_heroku.settings(locals())
 
 
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'skins': 'moono-lisa',
+        'height': 300,
+        'width': 993,
+
+        'toolbar_Custom': [
+               {'name': 'math', 'items': ['Mathjax', ]},
+           ],
+         'mathJaxLib': '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML',
+
+         'removePlugins': 'stylesheetparser',
+
+        'extraPlugins': ','.join([
+            'uploadimage', # the upload image feature
+            # your extra plugins here
+            'div',
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            'devtools',
+            'widget',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+            'elementspath',
+            'codesnippet',
+            'mathjax',
+            'uicolor',
+            'image2',
+        ]),
+    },
+
+}

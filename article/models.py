@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 from PIL import Image
 from ckeditor.fields import RichTextField
 
+
 # Create your models here.
 
 class Category(models.Model):
@@ -27,7 +28,7 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Tag, self).save(*args, **kwargs)
@@ -52,8 +53,7 @@ class Article(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Article, self).save(*args, **kwargs)
-        
+
         img = Image.open(self.image.path)
         img = img.resize((1000, 620))
         img.save(self.image.path)
-        
